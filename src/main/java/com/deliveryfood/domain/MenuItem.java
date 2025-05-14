@@ -1,0 +1,13 @@
+package com.deliveryfood.domain;
+
+import com.deliveryfood.common.Type;
+import lombok.Data;
+import java.math.BigDecimal;
+
+@Data
+public class MenuItem {
+    private final String name;
+    private final String description;
+    private final BigDecimal price;
+    private final Type type;
+}
