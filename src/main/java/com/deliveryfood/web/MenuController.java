@@ -55,7 +55,10 @@ public class MenuController {
     public String processMenu(
             Menu menu,
             @ModelAttribute("order") Order order) {
+        log.info("---------------------POST-------------------------");
+        log.info("Before processing menu items: {}", menu.getMenuItems());
         menu.getMenuItems().forEach(order::addMenuItem);
+        log.info("After processing menu items: {}", order.getMenuItems());
         return "redirect:/order";
     }
 }

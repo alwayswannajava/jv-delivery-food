@@ -14,10 +14,10 @@ public class Order {
     private String deliveryZip;
     private Status status;
     private String customerName;
-    private List<MenuItem> menu = new ArrayList<>();
+    private List<MenuItem> menuItems = new ArrayList<>();
 
 
     public void addMenuItem(MenuItem menuItem) {
-        this.menu.add(menuItem);
+        this.menuItems.add(menuItem);
     }
 }
