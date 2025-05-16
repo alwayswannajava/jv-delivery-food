@@ -7,10 +7,8 @@ import com.deliveryfood.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -24,11 +22,20 @@ public class MenuController {
     @ModelAttribute
     public void addMenuItemsToModel(Model model) {
         List<MenuItem> items = Arrays.asList(
-                new MenuItem("Pizza", "Delicious cheese pizza", BigDecimal.valueOf(8.99), Type.FOOD),
-                new MenuItem("Burger", "Juicy beef burger", BigDecimal.valueOf(5.99), Type.FOOD),
-                new MenuItem("Soda", "Refreshing soda", BigDecimal.valueOf(1.99), Type.DRINK)
+                new MenuItem(1L, "Pizza", "Delicious cheese pizza", BigDecimal.valueOf(8.99), Type.FOOD),
+                new MenuItem(2L,"Burger", "Juicy beef burger", BigDecimal.valueOf(5.99), Type.FOOD),
+                new MenuItem(3L,"Soda", "Refreshing soda", BigDecimal.valueOf(1.99), Type.DRINK)
         );
-        model.addAttribute("menuItems", items);
+        Type [] types = Type.values();
+        for (Type type : types) {
+            model.addAttribute(type.toString().toLowerCase(), filterByType(items, type));
+        }
+    }
+
+    private Iterable<MenuItem> filterByType(List<MenuItem> items, Type type) {
+        return items.stream()
+                .filter(item -> item.getType().equals(type))
+                .toList();
     }
 
     @ModelAttribute("order")
@@ -44,5 +51,13 @@ public class MenuController {
     @GetMapping
     public String showMenu(Model model) {
         return "menu";
+    }
+
+    @PostMapping
+    public String processMenu(
+            Menu menu,
+            @ModelAttribute("order") Order order) {
+        order.addMenuItem(menu.getMenuItems().get(0));
+        return "redirect:/order";
     }
 }

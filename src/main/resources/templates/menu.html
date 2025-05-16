@@ -6,15 +6,29 @@
     <title>Меню ресторану</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/styles.css}" /> </head>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+</head>
 <body class="bg-light">
 <header class="bg-danger text-white py-3">
     <div class="container">
         <h1 class="text-center">Наше меню</h1>
     </div>
 </header>
-
-<form method="POST" th:object="${menuItems}">
+<form method="POST" th:object="${menu}">
+<div class="grid">
+    <div class="items-group" id="drinks">
+        <div th:each="ingredient : ${food}">
+            <input th:field="*{menuItems}" type="checkbox"
+                   th:value="${ingredient.id}"/>
+            <span th:text="${ingredient.name}">INGREDIENT</span><br/>
+            <span th:text="${ingredient.description}">INGREDIENT</span><br/>
+            <span th:text="${ingredient.price}">INGREDIENT</span><br/>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-outline-success w-100 food-item-button">Зробити замовлення</button>
+</div>
+</form>
+<!--<form method="POST" th:object="${menu}">
     <main class="container py-5">
         <div class="row g-4">
             <div class="col-lg-4 col-md-6" th:each="item : ${menuItems}">
@@ -24,21 +38,30 @@
                         <p class="card-text text-muted" th:text="${item.description}">Опис страви</p>
                         <p class="card-text font-weight-bold text-danger" th:text="${item.price}">Ціна</p>
                         <span class="badge bg-primary mt-2" th:text="${item.type}">Тип</span>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-outline-success w-100">Додати в кошик</button>
+                        <div class="form-check custom-check">
+                            <input class="form-check-input" type="checkbox" id="addToOrder-${item.name}" name="selectedItems" th:value="${item.name}"/>
+                            <label class="form-check-label" for="addToOrder-${item.name}">
+                                Додати до замовлення
+                            </label>
+                            <input type="hidden" name="itemName" th:value="${item.name}">
+                            <input type="hidden" name="itemDescription" th:value="${item.description}">
+                            <input type="hidden" name="itemPrice" th:value="${item.price}">
+                            <input type="hidden" name="itemType" th:value="${item.type}">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </main>
-</form>
+    <button type="submit" class="btn btn-outline-success w-100 food-item-button">Зробити замовлення</button>
+</form>-->
 
-<footer class="bg-dark text-light py-4">
+
+<!--<footer class="bg-dark text-light py-4">
     <div class="container text-center">
         <p>© 2025 Всі права захищені.</p>
     </div>
-</footer>
+</footer>-->
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
