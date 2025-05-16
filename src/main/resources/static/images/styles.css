@@ -1,11 +1,2 @@
-body {
-    font-family: 'Inter', sans-serif;
-}
-.food-item {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-.food-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
+
 

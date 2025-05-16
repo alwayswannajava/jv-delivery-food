@@ -14,25 +14,6 @@
         <h1 class="text-center">Our menu</h1>
     </div>
 </header>
-<!--<form method="POST" th:object="${menu}">
-    <div class="grid">
-        <div class="items-group" id="food">
-            <div th:each="menuItem : ${food}">
-                <input th:field="*{menuItems}" type="checkbox"
-                       th:value="${menuItem.id}"/>
-                <span th:text="${menuItem.name}">MENUITEM</span><br/>
-            </div>
-        </div>
-        <div class="items-group" id="drinks">
-            <div th:each="menuItem : ${drinks}">
-                <input th:field="*{menuItems}" type="checkbox"
-                       th:value="${menuItem.id}"/>
-                <span th:text="${menuItem.name}">MENUITEM</span><br/>
-            </div>
-        </div>
-        <button type="submit" class="btn btn-outline-success w-100 food-item-button">Зробити замовлення</button>
-    </div>
-</form>-->
 <form method="POST" th:object="${menu}">
     <main class="container py-5">
         <div class="row g-4">
