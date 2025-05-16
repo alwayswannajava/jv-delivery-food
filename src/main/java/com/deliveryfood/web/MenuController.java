@@ -1,4 +1,4 @@
-package com.deliveryfood.controller;
+package com.deliveryfood.web;
 
 import com.deliveryfood.common.Type;
 import com.deliveryfood.domain.Menu;
@@ -8,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -49,7 +47,7 @@ public class MenuController {
     }
 
     @GetMapping
-    public String showMenu(Model model) {
+    public String showMenu() {
         return "menu";
     }
 
@@ -57,7 +55,7 @@ public class MenuController {
     public String processMenu(
             Menu menu,
             @ModelAttribute("order") Order order) {
-        order.addMenuItem(menu.getMenuItems().get(0));
+        menu.getMenuItems().forEach(order::addMenuItem);
         return "redirect:/order";
     }
 }

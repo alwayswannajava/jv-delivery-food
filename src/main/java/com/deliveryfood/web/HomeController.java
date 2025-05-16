@@ -1,4 +1,4 @@
-package com.deliveryfood.controller;
+package com.deliveryfood.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
