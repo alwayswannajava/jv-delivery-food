@@ -14,9 +14,11 @@ import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("/v1/menu")
 @SessionAttributes("order")
 public class MenuController {
+    private static final String REDIRECT_ORDER_PATH = "redirect:/v1/orders/current";
+
     @ModelAttribute
     public void addMenuItemsToModel(Model model) {
         List<MenuItem> items = Arrays.asList(
@@ -55,10 +57,18 @@ public class MenuController {
     public String processMenu(
             Menu menu,
             @ModelAttribute("order") Order order) {
-        log.info("---------------------POST-------------------------");
+        log.info("----------------------POST-------------------------");
         log.info("Before processing menu items: {}", menu.getMenuItems());
-        menu.getMenuItems().forEach(order::addMenuItem);
+        order.addMenuItems(menu.getMenuItems());
+        order.setTotalPrice(calculateTotalPrice(menu.getMenuItems()));
         log.info("After processing menu items: {}", order.getMenuItems());
-        return "redirect:/order";
+        return REDIRECT_ORDER_PATH;
+    }
+
+    private BigDecimal calculateTotalPrice(List<MenuItem> menuItems) {
+        return menuItems.stream()
+                .map(menuItem -> menuItem.getPrice().multiply(
+                        BigDecimal.valueOf(menuItem.getQuantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

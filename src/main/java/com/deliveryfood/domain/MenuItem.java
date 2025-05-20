@@ -10,5 +10,6 @@ public class MenuItem {
     private final String name;
     private final String description;
     private final BigDecimal price;
+    private final int quantity = 1;
     private final Type type;
 }
