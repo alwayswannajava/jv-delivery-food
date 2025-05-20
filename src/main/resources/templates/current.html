@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Make your order</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<form method="POST" th:action="@{/v1/orders}" th:object="${order}" class="container mt-4">
+    <h3>Your items in this order:</h3>
+    <a th:href="@{/v1/menu}" id="another">Select other items</a><br/>
+    <ul>
+        <li th:each="item : ${order.menuItems}">
+            <span th:text="${item.name}">item name</span></li>
+    </ul>
+        <div class="mb-3">
+            <label for="deliveryStreet" class="form-label">Street</label>
+            <input type="text" th:field="*{deliveryStreet}" class="form-control" id="deliveryStreet" placeholder="Enter your street">
+        </div>
+
+        <div class="mb-3">
+            <label for="deliveryCity" class="form-label">City</label>
+            <input type="text" th:field="*{deliveryCity}" class="form-control" id="deliveryCity" placeholder="Enter your city">
+        </div>
+
+        <div class="mb-3">
+            <label for="deliveryState" class="form-label">State</label>
+            <input type="text" th:field="*{deliveryState}" class="form-control" id="deliveryState" placeholder="Enter your state">
+        </div>
+
+        <div class="mb-3">
+            <label for="deliveryZip" class="form-label">ZIP Code</label>
+            <input type="text" th:field="*{deliveryZip}" class="form-control" id="deliveryZip" placeholder="Enter ZIP code">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Order</button>
+    </form>
+</body>
+</html>
