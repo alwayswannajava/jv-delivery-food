@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/v1/menu")
 @SessionAttributes("order")
 public class MenuController {
+    public static final String MENU_VIEW = "menu";
     private static final String REDIRECT_TO_ORDER_VIEW = "redirect:/v1/orders/current";
 
     @ModelAttribute
@@ -40,12 +41,8 @@ public class MenuController {
     }
 
     @ModelAttribute("order")
-    public Order order(WebRequest request) {
-        Order order = (Order) request.getAttribute("order", WebRequest.SCOPE_SESSION);
-        if (order == null) {
-            order = new Order();
-        }
-        return order;
+    public Order order() {
+        return new Order();
     }
 
     @ModelAttribute("menu")
@@ -55,7 +52,7 @@ public class MenuController {
 
     @GetMapping
     public String showMenu() {
-        return "menu";
+        return MENU_VIEW;
     }
 
     @PostMapping
