@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
@@ -17,14 +18,14 @@ import java.util.List;
 @RequestMapping("/v1/menu")
 @SessionAttributes("order")
 public class MenuController {
-    private static final String REDIRECT_ORDER_PATH = "redirect:/v1/orders/current";
+    private static final String REDIRECT_TO_ORDER_VIEW = "redirect:/v1/orders/current";
 
     @ModelAttribute
     public void addMenuItemsToModel(Model model) {
         List<MenuItem> items = Arrays.asList(
-                new MenuItem(1L, "Pizza", "Delicious cheese pizza", BigDecimal.valueOf(8.99), Type.FOOD),
-                new MenuItem(2L,"Burger", "Juicy beef burger", BigDecimal.valueOf(5.99), Type.FOOD),
-                new MenuItem(3L,"Soda", "Refreshing soda", BigDecimal.valueOf(1.99), Type.DRINK)
+                new MenuItem(1L, "Pizza", "Delicious cheese pizza", BigDecimal.valueOf(8.99), 1, Type.FOOD),
+                new MenuItem(2L,"Burger", "Juicy beef burger", BigDecimal.valueOf(5.99), 1, Type.FOOD),
+                new MenuItem(3L,"Soda", "Refreshing soda", BigDecimal.valueOf(1.99), 1, Type.DRINK)
         );
         Type [] types = Type.values();
         for (Type type : types) {
@@ -39,8 +40,12 @@ public class MenuController {
     }
 
     @ModelAttribute("order")
-    public Order order() {
-        return new Order();
+    public Order order(WebRequest request) {
+        Order order = (Order) request.getAttribute("order", WebRequest.SCOPE_SESSION);
+        if (order == null) {
+            order = new Order();
+        }
+        return order;
     }
 
     @ModelAttribute("menu")
@@ -55,20 +60,12 @@ public class MenuController {
 
     @PostMapping
     public String processMenu(
-            Menu menu,
+            @ModelAttribute("menu") Menu menu,
             @ModelAttribute("order") Order order) {
         log.info("----------------------POST-------------------------");
         log.info("Before processing menu items: {}", menu.getMenuItems());
         order.addMenuItems(menu.getMenuItems());
-        order.setTotalPrice(calculateTotalPrice(menu.getMenuItems()));
         log.info("After processing menu items: {}", order.getMenuItems());
-        return REDIRECT_ORDER_PATH;
-    }
-
-    private BigDecimal calculateTotalPrice(List<MenuItem> menuItems) {
-        return menuItems.stream()
-                .map(menuItem -> menuItem.getPrice().multiply(
-                        BigDecimal.valueOf(menuItem.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        return REDIRECT_TO_ORDER_VIEW;
     }
 }
