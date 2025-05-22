@@ -23,12 +23,17 @@ public class OrderController {
 
     @GetMapping("/current")
     public String showOrder() {
+        log.info("----------------------GET-------------------------");
+        log.info("Showing current order");
         return CURRENT_ORDER_VIEW;
     }
 
     @GetMapping("/order-successful")
     public String showOrderSuccessful(@ModelAttribute("order") Order order, SessionStatus sessionStatus) {
+        log.info("----------------------GET-------------------------");
+        log.info("Showing order successful");
         sessionStatus.setComplete();
+        log.info("Order completed: {}", order);
         return ORDER_SUCCESSFUL_VIEW;
     }
 
@@ -38,7 +43,7 @@ public class OrderController {
         log.info("Processing order {}", order);
         order.setOrderId(UUID.randomUUID());
         order.setTotalPrice(calculateTotalPrice(order.getMenuItems()));
-        log.info("Completed order {}", order);
+        log.info("Processing order {}", order);
         return REDIRECT_TO_ORDER_SUCCESSFUL_VIEW;
     }
 
