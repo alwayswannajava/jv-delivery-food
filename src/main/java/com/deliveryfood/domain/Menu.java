@@ -1,11 +1,12 @@
 package com.deliveryfood.domain;
 
 import lombok.Data;
-import java.util.List;
-import java.util.UUID;
+import lombok.NoArgsConstructor;
+import java.util.Set;
 
 @Data
+@NoArgsConstructor
 public class Menu {
     private String name;
-    private List<MenuItem> menuItems;
+    private Set<MenuItem> menuItems;
 }
