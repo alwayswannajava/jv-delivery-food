@@ -2,8 +2,10 @@ package com.deliveryfood.web;
 
 import com.deliveryfood.domain.MenuItem;
 import com.deliveryfood.domain.Order;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import java.math.BigDecimal;
@@ -33,7 +35,10 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@ModelAttribute("order") Order order) {
+    public String processOrder(@Valid @ModelAttribute("order") Order order, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return CURRENT_ORDER_VIEW;
+        }
         log.info("----------------------POST-------------------------");
         log.info("Processing order {}", order);
         order.setOrderId(UUID.randomUUID());
