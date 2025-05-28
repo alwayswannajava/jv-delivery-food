@@ -57,7 +57,7 @@
                         <p class="card-text fw-bold text-danger" th:text="'$' + ${item.price}">Price</p>
                         <span class="badge bg-primary mb-2" th:text="${item.type}">Type</span>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" th:field="*{menuItems}" type="checkbox" th:value="${item.id}" id="food-check-${stat.index}" />
+                            <input class="form-check-input" th:field="*{products}" type="checkbox" th:value="${item.id}" id="food-check-${stat.index}" />
                             <label class="form-check-label" th:for="'food-check-' + ${stat.index}">Add to order</label>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
                         <p class="card-text fw-bold text-danger" th:text="'$' + ${item.price}">Price</p>
                         <span class="badge bg-info mb-2" th:text="${item.type}">Type</span>
                         <div class="form-check mb-2">
-                            <input class="form-check-input" th:field="*{menuItems}" type="checkbox" th:value="${item.id}" id="drink-check-${stat.index}" />
+                            <input class="form-check-input" th:field="*{products}" type="checkbox" th:value="${item.id}" id="drink-check-${stat.index}" />
                             <label class="form-check-label" th:for="'drink-check-' + ${stat.index}">Add to order</label>
                         </div>
                     </div>

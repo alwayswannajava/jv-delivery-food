@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-create-table-menu
+      author: Mykhailo Kornukh
+      comment: Create menu table
+      changes:
+        - createTable:
+            tableName: menu
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  defaultValueSequenceNext: seq_menu_id
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+                    unique: true
