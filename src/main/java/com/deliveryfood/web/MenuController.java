@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/v1/menu")
 @SessionAttributes("order")
 public class MenuController {
-    public static final String MENU_VIEW = "menu";
+    private static final String MENU_VIEW = "menu";
     private static final String REDIRECT_TO_ORDER_VIEW = "redirect:/v1/orders/current";
 
     @ModelAttribute
@@ -57,7 +57,7 @@ public class MenuController {
     @PostMapping
     public String processMenu(
             @ModelAttribute("menu") Menu menu,
-            @ModelAttribute("order") Order order) {
+            @ModelAttribute("orderDto") Order order) {
         log.info("----------------------POST-------------------------");
         log.info("Before processing menu items: {}", menu.getMenuItems());
         order.addMenuItems(menu.getMenuItems());
