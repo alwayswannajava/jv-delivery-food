@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: 00-create-sequences
+      author: Mykhailo Kornukh
+      comment: Create sequences for all entities
+      changes:
+        - createSequence:
+            sequenceName: seq_cart_item_id
+            startValue: 1
+            incrementBy: 50
+        - createSequence:
+            sequenceName: seq_menu_id
+            startValue: 1
+            incrementBy: 50
+        - createSequence:
+            sequenceName: seq_order_id
+            startValue: 1
+            incrementBy: 50
+        - createSequence:
+            sequenceName: seq_order_item_id
+            startValue: 1
+            incrementBy: 50
+        - createSequence:
+            sequenceName: seq_product_id
+            startValue: 1
+            incrementBy: 50
+        - createSequence:
+            sequenceName: seq_cart_id
+            startValue: 1
+            incrementBy: 50

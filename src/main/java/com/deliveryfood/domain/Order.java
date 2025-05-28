@@ -2,42 +2,54 @@ package com.deliveryfood.domain;
 
 import com.deliveryfood.common.PaymentMethod;
 import com.deliveryfood.common.Status;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 import java.math.BigDecimal;
 import java.util.*;
 
+@Entity
+@Table(name = "orders")
+@NoArgsConstructor(force = true)
 @Data
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order_id")
+    @SequenceGenerator(name = "seq_order_id", sequenceName = "seq_order_id")
     private Long id;
 
     @NaturalId
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID orderId;
+    @Column(nullable = false)
+    private UUID orderReference;
 
-    @NotBlank(message = "Delivery street is required")
+    @Column(nullable = false)
     private String deliveryStreet;
-    @NotBlank(message = "Delivery city is required")
+
+    @Column(nullable = false)
     private String deliveryCity;
-    @NotBlank(message = "Delivery state is required")
+
+    @Column(nullable = false)
     private String deliveryState;
-    @NotBlank(message = "Delivery zip is required")
+
+    @Column(nullable = false)
     private String deliveryZip;
-    private Status status = Status.IN_PROGRESS;
-    private String customerName;
-    private Set<Product> products = new HashSet<>();
-    private BigDecimal totalPrice = BigDecimal.ZERO;
-    @NotNull(message = "Payment method is required")
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<OrderItem> orderItems;
+
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private PaymentMethod paymentMethod;
 
-    public void addMenuItems(Set<Product> products) {
-        this.products.addAll(products);
+    public void addOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems.addAll(orderItems);
     }
 }

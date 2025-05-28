@@ -47,16 +47,7 @@ public class OrderController {
         }
         log.info("----------------------POST-------------------------");
         log.info("Processing order {}", order);
-        order.setOrderId(UUID.randomUUID());
-        order.setTotalPrice(calculateTotalPrice(order.getMenuItems()));
         log.info("Processing order {}", order);
         return REDIRECT_TO_ORDER_SUCCESSFUL_VIEW;
-    }
-
-    private BigDecimal calculateTotalPrice(Set<Product> products) {
-        return products.stream()
-                .map(menuItem -> menuItem.getPrice().multiply(
-                        BigDecimal.valueOf(menuItem.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }
