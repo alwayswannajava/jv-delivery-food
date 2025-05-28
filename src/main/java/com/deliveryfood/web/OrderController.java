@@ -1,7 +1,8 @@
 package com.deliveryfood.web;
 
-import com.deliveryfood.domain.MenuItem;
+import com.deliveryfood.domain.Product;
 import com.deliveryfood.domain.Order;
+import com.deliveryfood.domain.Product;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -52,8 +53,8 @@ public class OrderController {
         return REDIRECT_TO_ORDER_SUCCESSFUL_VIEW;
     }
 
-    private BigDecimal calculateTotalPrice(Set<MenuItem> menuItems) {
-        return menuItems.stream()
+    private BigDecimal calculateTotalPrice(Set<Product> products) {
+        return products.stream()
                 .map(menuItem -> menuItem.getPrice().multiply(
                         BigDecimal.valueOf(menuItem.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add);

@@ -1,5 +1,6 @@
 package com.deliveryfood.domain;
 
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Set;
@@ -8,5 +9,6 @@ import java.util.Set;
 @NoArgsConstructor
 public class Menu {
     private String name;
-    private Set<MenuItem> menuItems;
+    @OneToMany
+    private Set<Product> products;
 }
