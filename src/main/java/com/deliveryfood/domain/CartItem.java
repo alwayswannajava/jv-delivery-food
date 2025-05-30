@@ -1,13 +1,15 @@
 package com.deliveryfood.domain;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "cart_items")
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = {"shoppingCart", "product"})
 public class CartItem {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.SEQUENCE, generator = "seq_cart_item_id")
