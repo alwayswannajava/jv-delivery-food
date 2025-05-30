@@ -1,16 +1,34 @@
-package com.deliveryfood.domain;
+package com.deliveryfood.domain.postgres;
 
 import com.deliveryfood.common.Type;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-@NoArgsConstructor(force = true)
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product_id")
@@ -19,7 +37,7 @@ public class Product {
 
     @NaturalId
     @Column(name = "product_reference", nullable = false)
-    private UUID productReference;
+    private final UUID productReference = UUID.randomUUID();
 
     @Column(nullable = false)
     private String name;

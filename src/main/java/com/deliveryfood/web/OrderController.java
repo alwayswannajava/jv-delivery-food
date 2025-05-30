@@ -1,17 +1,12 @@
 package com.deliveryfood.web;
 
-import com.deliveryfood.domain.Product;
-import com.deliveryfood.domain.Order;
-import com.deliveryfood.domain.Product;
+import com.deliveryfood.domain.postgres.Order;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
-import java.math.BigDecimal;
-import java.util.Set;
-import java.util.UUID;
 
 @Slf4j
 @Controller

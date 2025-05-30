@@ -1,6 +1,6 @@
 package com.deliveryfood.web.converter;
 
-import com.deliveryfood.domain.Product;
+import com.deliveryfood.domain.postgres.Product;
 import com.deliveryfood.repository.ProductRepository;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;

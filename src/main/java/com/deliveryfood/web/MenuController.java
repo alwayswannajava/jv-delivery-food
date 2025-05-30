@@ -1,16 +1,19 @@
 package com.deliveryfood.web;
 
 import com.deliveryfood.common.Type;
-import com.deliveryfood.domain.CartItem;
-import com.deliveryfood.domain.Menu;
-import com.deliveryfood.domain.ShoppingCart;
+import com.deliveryfood.domain.cassandra.CartItemUDT;
+import com.deliveryfood.domain.postgres.Menu;
+import com.deliveryfood.domain.cassandra.ShoppingCart;
 import com.deliveryfood.repository.ProductRepository;
+import com.deliveryfood.repository.ShoppingCartRepository;
 import com.deliveryfood.repository.projection.ProductProjection;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -55,8 +58,9 @@ public class MenuController {
         log.info("----------------------POST-------------------------");
         log.info("Before processing menu items: {}", menu.getProducts());
         menu.getProducts().forEach(product -> {
-            CartItem cartItem = new CartItem();
-            cartItem.setProduct(product);
+            final CartItemUDT cartItem = new CartItemUDT();
+            cartItem.setName(product.getName());
+            cartItem.setType(product.getType());
             shoppingCart.addCartItem(cartItem);
         });
         log.info("After processing menu items: {}", shoppingCart.getShoppingCartItems());

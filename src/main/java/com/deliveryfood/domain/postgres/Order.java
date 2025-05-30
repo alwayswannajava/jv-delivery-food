@@ -1,18 +1,37 @@
-package com.deliveryfood.domain;
+package com.deliveryfood.domain.postgres;
 
 import com.deliveryfood.common.PaymentMethod;
 import com.deliveryfood.common.Status;
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
+
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
-@NoArgsConstructor(force = true)
-@Data
+@NoArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = "orderItems")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order_id")
@@ -21,7 +40,7 @@ public class Order {
 
     @NaturalId
     @Column(nullable = false)
-    private UUID orderReference;
+    private final UUID orderReference = UUID.randomUUID();
 
     @Column(nullable = false)
     private String deliveryStreet;
@@ -37,7 +56,7 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private Status status;
+    private final Status status = Status.IN_PROGRESS;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderItem> orderItems;
