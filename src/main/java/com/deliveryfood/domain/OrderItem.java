@@ -2,14 +2,17 @@ package com.deliveryfood.domain;
 
 import com.deliveryfood.common.Type;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_items")
 @NoArgsConstructor(force = true)
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = "order")
 public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order_item_id")

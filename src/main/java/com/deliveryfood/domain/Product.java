@@ -10,7 +10,10 @@ import java.util.UUID;
 @Entity
 @Table(name = "products")
 @NoArgsConstructor(force = true)
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = "menu")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_product_id")

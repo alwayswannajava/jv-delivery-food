@@ -3,8 +3,7 @@ package com.deliveryfood.domain;
 import com.deliveryfood.common.PaymentMethod;
 import com.deliveryfood.common.Status;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.NaturalId;
 import java.math.BigDecimal;
 import java.util.*;
@@ -12,7 +11,10 @@ import java.util.*;
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor(force = true)
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString(exclude = {"orderItems"})
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_order_id")
