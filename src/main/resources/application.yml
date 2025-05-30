@@ -24,3 +24,17 @@ spring:
           open_in_view: false
           format_sql: true
           use_sql_comments: true
+  cassandra:
+    local-datacenter: datacenter1
+    keyspace-name: delivery_food_keyspace
+    schema-action: create_if_not_exists
+    request:
+      timeout: 10s
+    connection:
+      connect-timeout: 10s
+      init-query-timeout: 10s
+    username: MykhailoK
+    password: asdqeGtm2121q2
+    port: 9042
+    contact-points: localhost
+
