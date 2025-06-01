@@ -20,7 +20,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
-
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
